@@ -11,8 +11,8 @@ export const unauthorized = (): HttpResponse => ({
   body: new UnauthorizedError()
 })
 
-export const created = (body: any): HttpResponse => ({
-  statusCode: 201,
+export const ok = (body: any): HttpResponse => ({
+  statusCode: 200,
   body
 })
 
