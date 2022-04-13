@@ -9,7 +9,9 @@ export const adaptRoute = (controller: Controller): RequestHandler => {
 
     const httpResponse = await controller.handle(httpRequest)
 
-    if (httpResponse.statusCode in [200, 201]) {
+    const successCodes = [200, 201]
+
+    if (successCodes.includes(httpResponse.statusCode)) {
       res.status(httpResponse.statusCode).json(httpResponse.body)
     } else {
       res.status(httpResponse.statusCode).json({
