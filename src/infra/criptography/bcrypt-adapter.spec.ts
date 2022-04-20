@@ -51,4 +51,16 @@ describe('Bcrypt Adapter', () => {
     const isValid = await sut.compare('any_value', 'any_hash')
     expect(isValid).toBe(true)
   })
+
+  test('Should return false when compare fails', async () => {
+    const sut = makeSut()
+
+    type compareReturningBoolean = (data: string | Buffer, encrypted: string) => Promise<boolean>
+    (bcrypt.compare as compareReturningBoolean) = jest.fn(async () => (
+      await Promise.resolve(false)
+    ))
+
+    const isValid = await sut.compare('any_value', 'any_hash')
+    expect(isValid).toBe(false)
+  })
 })
