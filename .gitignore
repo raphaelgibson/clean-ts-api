@@ -1,6 +1,7 @@
 .vscode
 coverage
 data
+!src/data
 dist
 globalConfig.json
 node_modules
