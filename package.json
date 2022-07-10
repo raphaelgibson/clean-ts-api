@@ -18,8 +18,8 @@
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Raphael Gibson",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.3.4",
     "@types/bcrypt": "^5.0.0",
