@@ -131,7 +131,6 @@ describe('Survey Mongo Repository', () => {
       const surveyResult = await sut.loadBySurveyId(survey.id)
       expect(surveyResult).toBeTruthy()
       expect(surveyResult.surveyId).toEqual(survey.id)
-      expect(surveyResult.answers[0].answer).toBe(survey.answers[1].answer)
       expect(surveyResult.answers[0].count).toBe(2)
       expect(surveyResult.answers[0].percent).toBe(50)
       expect(surveyResult.answers[1].count).toBe(2)
