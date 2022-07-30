@@ -2,6 +2,7 @@
 coverage
 data
 !src/data
+!tests/data
 dist
 globalConfig.json
 node_modules

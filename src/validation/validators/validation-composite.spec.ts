@@ -1,6 +1,6 @@
 import { ValidationComposite } from './validation-composite'
 import { MissingParamError } from '@/presentation/errors'
-import { ValidationSpy } from '@/presentation/test'
+import { ValidationSpy } from '@/../tests/presentation/mocks'
 import faker from 'faker'
 
 const field = faker.random.word()
