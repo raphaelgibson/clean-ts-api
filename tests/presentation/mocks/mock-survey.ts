@@ -1,6 +1,6 @@
 import { AddSurvey, CheckSurveyById, LoadAnswersBySurvey, LoadSurveys } from '@/domain/usecases'
 import { SurveyModel } from '@/domain/models'
-import { mockSurveyModels } from '@/../tests/domain/mocks'
+import { mockSurveyModels } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 

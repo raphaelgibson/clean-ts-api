@@ -1,6 +1,6 @@
 import { DbCheckSurveyById } from '@/data/usecases'
-import { CheckSurveyByIdRepositorySpy } from '@/../tests/data/mocks'
-import { throwError } from '@/../tests/domain/mocks'
+import { CheckSurveyByIdRepositorySpy } from '@/tests/data/mocks'
+import { throwError } from '@/tests/domain/mocks'
 
 import faker from 'faker'
 

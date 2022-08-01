@@ -1,6 +1,6 @@
 import { DbSaveSurveyResult } from '@/data/usecases'
-import { LoadSurveyResultRepositorySpy, SaveSurveyResultRepositorySpy } from '@/../tests/data/mocks'
-import { mockSaveSurveyResultParams, throwError } from '@/../tests/domain/mocks'
+import { LoadSurveyResultRepositorySpy, SaveSurveyResultRepositorySpy } from '@/tests/data/mocks'
+import { mockSaveSurveyResultParams, throwError } from '@/tests/domain/mocks'
 
 import MockDate from 'mockdate'
 
