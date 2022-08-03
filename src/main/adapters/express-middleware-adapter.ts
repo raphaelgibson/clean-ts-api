@@ -1,23 +1,23 @@
 import { Middleware } from '@/presentation/protocols'
 
-import { Request, Response, RequestHandler, NextFunction } from 'express'
+import { RequestHandler, NextFunction } from 'express'
 
-export const adaptMiddleware = (middleware: Middleware): RequestHandler => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    const request = {
-      accessToken: req.headers?.['x-access-token'],
-      ...(req.headers || {})
-    }
+type Adapter = (middleware: Middleware) => RequestHandler
 
-    const httpResponse = await middleware.handle(request)
+export const adaptMiddleware: Adapter = middleware => async (req, res, next: NextFunction) => {
+  const request = {
+    accessToken: req.headers?.['x-access-token'],
+    ...(req.headers || {})
+  }
 
-    if (httpResponse.statusCode === 200) {
-      Object.assign(req, httpResponse.body)
-      next()
-    } else {
-      res.status(httpResponse.statusCode).json({
-        error: httpResponse.body.message
-      })
-    }
+  const httpResponse = await middleware.handle(request)
+
+  if (httpResponse.statusCode === 200) {
+    Object.assign(req, httpResponse.body)
+    next()
+  } else {
+    res.status(httpResponse.statusCode).json({
+      error: httpResponse.body.message
+    })
   }
 }

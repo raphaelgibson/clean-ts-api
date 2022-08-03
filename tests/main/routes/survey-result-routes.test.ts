@@ -11,16 +11,16 @@ let surveyCollection: Collection
 let accountCollection: Collection
 let app: Express
 
-const makeAccessToken = async (): Promise<string> => {
+const mockAccessToken = async (): Promise<string> => {
   const res = await accountCollection.insertOne({
     name: 'Raphael',
     email: 'raphael.gibson@email.com',
     password: '123'
   })
-  const id = res.ops[0]._id
+  const id = res.insertedId.toHexString()
   const accessToken = sign({ id }, env.jwtSecret)
   await accountCollection.updateOne({
-    _id: id
+    _id: res.insertedId
   }, {
     $set: {
       accessToken
@@ -41,10 +41,10 @@ describe('Survey Routes', () => {
   })
 
   beforeEach(async (): Promise<void> => {
-    surveyCollection = await MongoHelper.getCollection('surveys')
+    surveyCollection = MongoHelper.getCollection('surveys')
     await surveyCollection.deleteMany({})
 
-    accountCollection = await MongoHelper.getCollection('accounts')
+    accountCollection = MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
 
@@ -59,7 +59,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 200 on save survey result with accessToken', async () => {
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       const res = await surveyCollection.insertOne({
         question: 'Question',
         answers: [{
@@ -71,7 +71,7 @@ describe('Survey Routes', () => {
         date: new Date()
       })
       await request(app)
-        .put(`/api/surveys/${String(res.ops[0]._id)}/results`)
+        .put(`/api/surveys/${String(res.insertedId.toHexString())}/results`)
         .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 1'
@@ -88,7 +88,7 @@ describe('Survey Routes', () => {
     })
 
     test('Should return 200 on load survey result with accessToken', async () => {
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       const res = await surveyCollection.insertOne({
         question: 'Question',
         answers: [{
@@ -100,7 +100,7 @@ describe('Survey Routes', () => {
         date: new Date()
       })
       await request(app)
-        .get(`/api/surveys/${String(res.ops[0]._id)}/results`)
+        .get(`/api/surveys/${String(res.insertedId.toHexString())}/results`)
         .set('x-access-token', accessToken)
         .expect(200)
     })

@@ -1,8 +1,8 @@
-import setupApolloServer from './apollo-server'
-import setupMiddlewares from './middlewares'
-import setupRoutes from './routes'
-import setupStaticFiles from './static-files'
-import setupSwagger from './swagger'
+import { setupApolloServer } from '@/main/graphql/apollo'
+import setupMiddlewares from '@/main/config/middlewares'
+import setupRoutes from '@/main/config/routes'
+import setupStaticFiles from '@/main/config/static-files'
+import setupSwagger from '@/main/config/swagger'
 
 import express, { Express } from 'express'
 
